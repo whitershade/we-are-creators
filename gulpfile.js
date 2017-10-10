@@ -102,6 +102,25 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('build/css'));
 });
 
+gulp.task('styles:dist', function() {
+  gulp.src('styles/*.sass')
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(sass({
+      indentedSyntax: true
+    }))
+    .pipe(autoprefixer({
+      browsers: ['last 5 versions'],
+      cascade: false
+    }))
+    .pipe(cleanCSS())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('dist/css'));
+});
+
 gulp.task('templates', function() {
   gulp.src('./*.pug')
     .pipe(plumber({
@@ -109,6 +128,15 @@ gulp.task('templates', function() {
     }))
     .pipe(pug())
     .pipe(gulp.dest('build/'));
+});
+
+gulp.task('templates:dist', function() {
+  gulp.src('./*.pug')
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(pug())
+    .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('scripts', function() {
@@ -126,6 +154,19 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('build/js'));
 });
 
+gulp.task('scripts:dist', function() {
+  return gulp.src(myJsFiles.concat(jsVendorFiles))
+    .pipe(plumber({
+      errorHandler: onError
+    }))
+    .pipe(gconcat('bundle.js'))
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('dist/js'));
+});
+
 gulp.task('images', function() {
   gulp.src('img/**/*')
     .pipe(cache(imagemin({
@@ -136,9 +177,25 @@ gulp.task('images', function() {
     .pipe(gulp.dest('build/img/'));
 });
 
+gulp.task('images:dist', function() {
+  gulp.src('img/**/*')
+    .pipe(cache(imagemin({
+      optimizationLevel: 3,
+      progressive: true,
+      interlaced: true
+    })))
+    .pipe(gulp.dest('dist/img/'));
+});
+
+
 gulp.task('fonts', function() {
   gulp.src('fonts/**/*')
       .pipe(gulp.dest('build/fonts/'));
+});
+
+gulp.task('fonts:dist', function() {
+  gulp.src('fonts/**/*')
+      .pipe(gulp.dest('dist/fonts/'));
 });
 
 gulp.task('setup-src', function() {
@@ -198,7 +255,11 @@ gulp.task('watch', function() {
   gulp.watch(['build/**'], browserSync.reload);
 });
 
+gulp.task('dist', function() {
+  gulp.start('styles:dist', 'templates:dist', 'scripts:dist', 'images:dist', 'fonts:dist');
+});
+
 gulp.task('github-pages', function() {
-  gulp.src('build/**/*')
+  gulp.src('dist/**/*')
       .pipe(gulp.dest('docs/'));
 });
