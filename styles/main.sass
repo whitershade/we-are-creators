@@ -1,0 +1,324 @@
+@import 'base/normalize.scss'
+@import 'base/reset.scss'
+@import 'variables/colors.sass'
+@import 'variables/gutters.sass'
+@import 'fonts/fonts.sass'
+
+.container
+  max-width: 1200px
+  margin: auto
+  padding: 0 $gutter-size
+
+.button
+  display: inline-flex
+  flex-basis: 200px
+  justify-content: center
+
+  color: $text-color
+  font-size: 20px
+  font-weight: 800
+  text-decoration: none
+  transition: background-color .3s ease
+  padding: $gutter-size
+
+  border-radius: 3px
+  border: none
+
+  &:not(:last-of-type)
+    margin-right: $gutter-size-big
+
+.section-title
+  color: $section-title-color
+  font-size: 34px
+  margin-bottom: 50px
+  margin-top: 0
+  padding: 0
+  font-weight: 800
+
+@mixin button-state($bg-color, $amount: 5%)
+  background-color: $bg-color
+
+  &:hover
+    background-color: lighten($bg-color, $amount)
+
+  &:focus,
+  &:active
+    background-color: darken($bg-color, $amount)
+
+@mixin background-image($name)
+  background-size: cover
+  background-position: center
+  background-image: url("../img/#{$name}.jpg")
+
+@mixin with-overlay($bg-color: $overlay-color)
+  position: relative
+
+  &::after
+    content: ''
+
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+
+    background-color: $bg-color
+
+    transition: background-color .3s ease
+
+body
+  min-width: 320px
+  color: $text-color
+  font-family: 'raleway', sans-serif
+
+.main-header
+  @include with-overlay
+  @include background-image("header")
+
+  display: grid
+  align-items: center
+  justify-content: center
+
+  min-height: 100vh
+
+  &__container
+    position: relative
+    z-index: 1
+
+    padding: 0 $gutter-size
+
+  &__title
+    font-size: 60px
+    font-family: 'intro', sans-serif
+    font-weight: normal
+
+  &__buttons
+    display: flex
+    justify-content: center
+
+  &__button
+    @extend .button
+
+    &:first-of-type
+      @include button-state($button-main-bg-color)
+
+    &:nth-of-type(2)
+      @include button-state($button-secondary-bg-color, 2%)
+
+.section-cool-items
+  display: grid
+  padding: $gutter-size-small
+  grid-gap: $gutter-size-small
+  grid-template-columns: repeat(4, 1fr)
+
+  &__item
+    @include with-overlay($overlay-color-light)
+
+    display: grid
+    min-height: calc(33vh - 10px)
+    justify-content: center
+    align-items: center
+    font-size: 22px
+    font-weight: bold
+    color: $text-color
+    text-decoration: none
+    transition: color .3s ease
+
+    &:hover
+      color: $accent-color
+
+      &::after
+        background-color: $overlay-color
+
+    @for $index from 1 through 9
+      &:nth-of-type(#{$index})
+        @include background-image('/section-cool-items/#{$index}')
+
+    &:nth-of-type(1)
+      grid-column: 1 / 3
+
+    &:nth-of-type(5)
+      grid-column: 2 / 4
+
+    &:nth-of-type(6)
+      grid-column: 4
+      grid-row:  2 / 4
+
+  &__item-name
+    position: relative
+    z-index: 1
+
+.section-are-you-ready
+  color: $section-are-you-ready-text-color
+  background-color: $section-are-you-ready-bg-color
+  padding: 40px 0
+
+  &__container
+    @extend .container
+
+    display: grid
+    grid-template-columns: 1fr 1fr
+    align-items: center
+
+  &__text-wrapper
+    border-right: 1px solid $section-are-you-ready-border-color
+
+    padding:
+      right: 50px
+      top: 40px
+      bottom: 40px
+
+  &__title
+    @extend .section-title
+
+  &__text
+    font-size: 18px
+    padding: 0
+    margin: 0
+    line-height: 1.5
+
+    &:not(:last-of-type)
+      margin-bottom: 35px
+
+  &__image
+    display: flex
+    margin: auto
+
+    width: 100%
+    max-width: 560px
+    height: auto
+
+.section-form
+  padding: 25px 0
+  background-color: $section-form-bg-color
+
+  &__container
+    @extend .container
+
+  &__form
+    display: grid
+
+    grid-template-columns: repeat(4, 1fr)
+    grid-gap: $gutter-size
+
+  &__input
+    height: 53px
+    padding: $gutter-size
+
+    background-color: $section-form-input-bg-color
+    color: $section-form-input-text-color
+
+    border: none
+    outline: none
+
+    transition: background-color .3s ease
+
+    &:focus
+      background-color: $section-form-input-focus-bg-color
+      color: $section-form-input-focus-text-color
+
+    &::-webkit-input-placeholder
+      color: $section-form-input-placeholder-color
+    &::-moz-placeholder
+      color: $section-form-input-placeholder-color
+    &:-ms-input-placeholder
+      color: $section-form-input-placeholder-color
+    &:-moz-placeholder
+      color: $section-form-input-placeholder-color
+
+  &__button
+    @extend .button
+    @include button-state($button-main-bg-color)
+
+.section-blog
+  padding: 70px 0
+
+  &__container
+    @extend .container
+
+  &__title
+    @extend .section-title
+
+  &__items
+    display: grid
+    grid-gap: $gutter-size
+    grid-template-columns: repeat(4, 1fr)
+
+  &__item
+    text-decoration: none
+    text-align: center
+    display: grid
+    align-items: center
+    grid-template-rows: 1fr 1fr
+    background-color: #F7F7F7
+    transition: backgound-color .3s ease
+    overflow: hidden
+
+    &:hover
+      background-color: #ededed
+
+      .section-blog
+        &__item-title
+          color: #293a43
+
+        &__item-image
+          transform: scale(1.05) translateY(-6.5px)
+
+    &:nth-of-type(3)
+      grid-column: 3 / 5
+
+    &:nth-of-type(4)
+      grid-column: 1 / 3
+
+    @for $index from 1 through 6
+      &:nth-of-type(#{$index})
+        .section-blog__item-image
+          @include background-image('/section-blog/#{$index}')
+
+  &__item-image
+    height: 270px
+    transition: transform .3s ease
+
+  &__item-text-wrapper
+    display: grid
+    align-items: center
+    justify-content: center
+    padding: $gutter-size
+    line-height: 1.75
+
+  &__item-title
+    color: $section-blog-title-text-color
+    font-size: 18px
+    font-weight: bold
+    margin: 0 0 20px
+    padding: 0
+    transition: color .3s ease
+
+  &__item-text
+    font-size: 16px
+    color: #333333
+    padding: 0
+    margin: 0
+
+.main-footer
+  background-color: #1B2429
+  text-align: center
+  padding: 50px 0
+  color: #4E5355
+
+  &__container
+    @extend .container
+
+  &__logo
+    font-family: 'intro', sans-serif
+    font-size: 22px
+    margin-bottom: 30px
+
+  &__logo-span
+    display: flex
+    justify-content: center
+    color: #707476
+    font-size: 27px
+
+  &__copyright
+    font-size: 20px

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title We Are Real Creators
+    meta(name="description" content="")
+    link(rel="stylesheet" href="css/main.min.css")
+      
+  body
+    header.main-header
+      .main-header__container
+        h2.main-header__title We Are Real Creators
+        .main-header__buttons
+          a.main-header__button(href="#") Follow
+          a.main-header__button(href="#") Go Home
+          
+    main
+      section.section-cool-items
+        -
+          var items = [
+            { name: 'Glasses', link: '#' },
+            { name: 'MacBook', link: '#' },
+            { name: 'iMac', link: '#' },
+            { name: 'Hacking', link: '#' },
+            { name: 'Bull Shit', link: '#' },
+            { name: 'WorkSpace', link: '#' },
+            { name: 'Notebook', link: '#' },
+            { name: 'Code', link: '#' }, 
+            { name: 'Timer', link: '#' }
+          ]
+        each item in items
+          a(href=item.link).section-cool-items__item
+            p.section-cool-items__item-name= 'Cool ' + item.name
+      
+      section.section-are-you-ready
+        .section-are-you-ready__container
+          .section-are-you-ready__text-wrapper
+            h3.section-are-you-ready__title Are You Ready? <br />Are You MTHFCKU READY??
+            p.section-are-you-ready__text Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto non inventore! Iure voluptatem, recusandae asperiores qui distinctio sunt, est error aliquam!
+            p.section-are-you-ready__text Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto non inventore! Iure voluptatem, recusandae asperiores qui distinctio sunt, est error aliquam!
+          .section-are-you-ready__image-wrapper
+            img.section-are-you-ready__image(src="img/section-are-you-ready.jpg")
+      
+      section.section-form
+        .section-form__container    
+          form.section-form__form
+            input.section-form__input(type="text", placeholder="Your name...")
+            input.section-form__input(type="email", placeholder="Your email...")
+            input.section-form__input(type="tel", placeholder="Your phone...")
+            button.section-form__button(type="submit") Yes! Ready!  
+            
+      section.section-blog
+        .section-blog__container
+          h3.section-blog__title Ready To Read Our Hell Blog?
+          .section-blog__items
+            -
+              var items = [
+                { title: 'We Are Champions At Last Month', link: '#', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto' },
+                { title: 'We Are Champions At Last Month', link: '#', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto' },
+                { title: 'We Are Champions At Last Month', link: '#', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto' },
+                { title: 'We Are Champions At Last Month', link: '#', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto' },
+                { title: 'We Are Champions At Last Month', link: '#', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto' },
+                { title: 'We Are Champions At Last Month', link: '#', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo rem perferendis provident dolor nesciunt minima consectetur ipsum, architecto' }
+              ]
+            each item in items
+              a(href=item.link).section-blog__item
+                .section-blog__item-image
+                .section-blog__item-text-wrapper
+                  h4.section-blog__item-title= item.title
+                  p.section-blog__item-text= item.text
+                  
+    footer.main-footer 
+      .main-footer__container
+        p.main-footer__logo We Are Real 
+          span.main-footer__logo-span Creators
+        p.main-footer__copyright ~&copy;~
