@@ -197,3 +197,8 @@ gulp.task('watch', function() {
 
   gulp.watch(['build/**'], browserSync.reload);
 });
+
+gulp.task('github-pages', function() {
+  gulp.src('build/**/*')
+      .pipe(gulp.dest('docs/'));
+});
