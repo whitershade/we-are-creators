@@ -24,8 +24,19 @@
   border-radius: 3px
   border: none
 
-  &:not(:last-of-type)
-    margin-right: $gutter-size-big
+  &:hover
+    cursor: pointer
+
+  @media only screen and (min-width: 481px)
+    &:not(:last-of-type)
+      margin-right: $gutter-size-big
+
+  @media only screen and (max-width: 480px)
+    display: flex
+    flex-basis: 100%
+
+    &:not(:last-of-type)
+      margin-bottom: 20px
 
 .section-title
   color: $section-title-color
@@ -34,6 +45,10 @@
   margin-top: 0
   padding: 0
   font-weight: 800
+
+  @media only screen and (max-width: 768px)
+    font-size: 30px
+    margin-bottom: 30px
 
 @mixin button-state($bg-color, $amount: 5%)
   background-color: $bg-color
@@ -63,7 +78,6 @@
     left: 0
 
     background-color: $bg-color
-
     transition: background-color .3s ease
 
 body
@@ -78,6 +92,7 @@ body
   display: grid
   align-items: center
   justify-content: center
+  grid-template-columns: 1fr
 
   min-height: 100vh
 
@@ -91,10 +106,15 @@ body
     font-size: 60px
     font-family: 'intro', sans-serif
     font-weight: normal
+    text-align: center
+
+    @media only screen and (max-width: 768px)
+      font-size: 45px
 
   &__buttons
     display: flex
     justify-content: center
+    flex-wrap: wrap
 
   &__button
     @extend .button
@@ -109,20 +129,38 @@ body
   display: grid
   padding: $gutter-size-small
   grid-gap: $gutter-size-small
-  grid-template-columns: repeat(4, 1fr)
+
+  @media only screen and (max-width: 480px)
+    grid-template-columns: 1fr
+
+  @media only screen and (min-width: 481px) and (max-width: 768px)
+    grid-template-columns: repeat(2, 1fr)
+
+  @media only screen and (min-width: 769px) and (max-width: 968px)
+    grid-template-columns: repeat(3, 1fr)
+
+  @media only screen and (min-width: 969px)
+    grid-template-columns: repeat(4, 1fr)
 
   &__item
     @include with-overlay($overlay-color-light)
 
     display: grid
-    min-height: calc(33vh - 10px)
     justify-content: center
     align-items: center
+
     font-size: 22px
     font-weight: bold
-    color: $text-color
     text-decoration: none
+
+    color: $text-color
     transition: color .3s ease
+
+    @media only screen and (max-height: 400px)
+      min-height: calc(50vh - 10px)
+
+    @media only screen and (min-height: 401px)
+      min-height: calc(33vh - 10px)
 
     &:hover
       color: $accent-color
@@ -135,14 +173,35 @@ body
         @include background-image('/section-cool-items/#{$index}')
 
     &:nth-of-type(1)
-      grid-column: 1 / 3
+      @media only screen and (min-width: 481px)
+        grid-column: 1 / 3
+
+    &:nth-of-type(4)
+      @media only screen and (min-width: 481px) and (max-width: 768px)
+        grid-column: 1 / 3
+
+      @media only screen and (min-width: 769px) and (max-width: 968px)
+        grid-column: 2 / 4
 
     &:nth-of-type(5)
-      grid-column: 2 / 4
+      @media only screen and (max-width: 968px)
+        grid-column: 1 / 2
+
+      @media only screen and (min-width: 969px)
+        grid-column: 2 / 4
 
     &:nth-of-type(6)
-      grid-column: 4
-      grid-row:  2 / 4
+      @media only screen and (min-width: 768px) and (max-width: 968px)
+        grid-column: 3
+        grid-row:  3 / 5
+
+      @media only screen and (min-width: 969px)
+        grid-column: 4
+        grid-row:  2 / 4
+
+    &:nth-of-type(7)
+      @media only screen and (min-width: 481px) and (max-width: 768px)
+        grid-column: 1 / 3
 
   &__item-name
     position: relative
@@ -157,16 +216,22 @@ body
     @extend .container
 
     display: grid
-    grid-template-columns: 1fr 1fr
     align-items: center
 
-  &__text-wrapper
-    border-right: 1px solid $section-are-you-ready-border-color
+    @media only screen and (max-width: 768px)
+      grid-template-columns: 1fr
 
-    padding:
-      right: 50px
-      top: 40px
-      bottom: 40px
+    @media only screen and (min-width: 769px)
+      grid-template-columns: 1fr 1fr
+
+  &__text-wrapper
+    @media only screen and (min-width: 769px)
+      border-right: 1px solid $section-are-you-ready-border-color
+
+      padding:
+        right: 50px
+        top: 40px
+        bottom: 40px
 
   &__title
     @extend .section-title
@@ -177,16 +242,25 @@ body
     margin: 0
     line-height: 1.5
 
-    &:not(:last-of-type)
-      margin-bottom: 35px
+    @media only screen and (max-width: 768px)
+      &:not(:last-of-type)
+        margin-bottom: 20px
+
+    @media only screen and (min-width: 769px)
+      &:not(:last-of-type)
+        margin-bottom: 35px
 
   &__image
     display: flex
     margin: auto
 
     width: 100%
-    max-width: 560px
+
     height: auto
+
+    @media only screen and (max-width: 768px)
+      margin-top: 30px
+      max-width: 300px
 
 .section-form
   padding: 25px 0
@@ -197,9 +271,16 @@ body
 
   &__form
     display: grid
-
-    grid-template-columns: repeat(4, 1fr)
     grid-gap: $gutter-size
+
+    @media only screen and (max-width: 500px)
+      grid-template-columns: 1fr
+
+    @media only screen and (min-width: 501px) and (max-width: 968px)
+      grid-template-columns: repeat(2, 1fr)
+
+    @media only screen and (min-width: 969px)
+      grid-template-columns: repeat(4, 1fr)
 
   &__input
     height: 53px
@@ -242,7 +323,15 @@ body
   &__items
     display: grid
     grid-gap: $gutter-size
-    grid-template-columns: repeat(4, 1fr)
+
+    @media only screen and (max-width: 480px)
+      grid-template-columns: 1fr
+
+    @media only screen and (min-width: 481px) and (max-width: 968px)
+      grid-template-columns: repeat(2, 1fr)
+
+    @media only screen and (min-width: 969px)
+        grid-template-columns: repeat(4, 1fr)
 
   &__item
     text-decoration: none
@@ -265,10 +354,12 @@ body
           transform: scale(1.05) translateY(-6.5px)
 
     &:nth-of-type(3)
-      grid-column: 3 / 5
+      @media only screen and (min-width: 969px)
+        grid-column: 3 / 5
 
     &:nth-of-type(4)
-      grid-column: 1 / 3
+      @media only screen and (min-width: 969px)
+        grid-column: 1 / 3
 
     @for $index from 1 through 6
       &:nth-of-type(#{$index})
@@ -306,6 +397,9 @@ body
   padding: 50px 0
   color: #4E5355
 
+  @media only screen and (max-width: 768px)
+    padding: 20px 0
+
   &__container
     @extend .container
 
@@ -313,6 +407,9 @@ body
     font-family: 'intro', sans-serif
     font-size: 22px
     margin-bottom: 30px
+
+    @media only screen and (max-width: 768px)
+      margin-bottom: 15px
 
   &__logo-span
     display: flex
@@ -322,3 +419,5 @@ body
 
   &__copyright
     font-size: 20px
+    margin-top: 0
+    padding-top: 0
