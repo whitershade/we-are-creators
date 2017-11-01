@@ -1,35 +1,34 @@
-@import 'base/normalize.scss'
-@import 'base/reset.scss'
-@import 'variables/colors.sass'
-@import 'variables/gutters.sass'
-@import 'fonts/fonts.sass'
+@import 'base/normalize'
+@import 'base/reset'
+@import 'variables/colors'
+@import 'variables/gutters'
+@import 'fonts/fonts'
 
-.container
+
+%container
   max-width: 1200px
   margin: auto
   padding: 0 $gutter-size
 
-.button
+%button
   display: inline-flex
   flex-basis: 200px
   justify-content: center
 
-  color: $text-color
-  font-size: 20px
-  font-weight: 800
-  text-decoration: none
-  transition: background-color .3s ease
   padding: $gutter-size
 
+  transition: background-color .3s ease
+  text-decoration: none
+
+  color: $text-color
+  border: 0
   border-radius: 3px
-  border: none
+
+  font-size: 20px
+  font-weight: 800
 
   &:hover
     cursor: pointer
-
-  @media only screen and (min-width: 481px)
-    &:not(:last-of-type)
-      margin-right: $gutter-size-big
 
   @media only screen and (max-width: 480px)
     display: flex
@@ -38,17 +37,25 @@
     &:not(:last-of-type)
       margin-bottom: 20px
 
-.section-title
-  color: $section-title-color
-  font-size: 34px
-  margin-bottom: 50px
+  @media only screen and (min-width: 481px)
+    &:not(:last-of-type)
+      margin-right: $gutter-size-big
+
+
+%section-title
   margin-top: 0
+  margin-bottom: 50px
   padding: 0
+
+  color: $section-title-color
+
+  font-size: 34px
   font-weight: 800
 
   @media only screen and (max-width: 768px)
-    font-size: 30px
     margin-bottom: 30px
+
+    font-size: 30px
 
 @mixin button-state($bg-color, $amount: 5%)
   background-color: $bg-color
@@ -61,40 +68,42 @@
     background-color: darken($bg-color, $amount)
 
 @mixin background-image($name)
-  background-size: cover
+  background-image: url('../img/#{$name}.jpg')
   background-position: center
-  background-image: url("../img/#{$name}.jpg")
+  background-size: cover
 
 @mixin with-overlay($bg-color: $overlay-color)
   position: relative
 
   &::after
-    content: ''
-
     position: absolute
     top: 0
     right: 0
     bottom: 0
     left: 0
 
-    background-color: $bg-color
+    content: ''
     transition: background-color .3s ease
+
+    background-color: $bg-color
 
 body
   min-width: 320px
+
   color: $text-color
+
   font-family: 'raleway', sans-serif
 
 .main-header
-  @include with-overlay
-  @include background-image("header")
-
   display: grid
   align-items: center
   justify-content: center
-  grid-template-columns: 1fr
 
   min-height: 100vh
+
+  @include with-overlay
+  @include background-image('header')
+  grid-template-columns: 1fr
 
   &__container
     position: relative
@@ -103,21 +112,22 @@ body
     padding: 0 $gutter-size
 
   &__title
-    font-size: 60px
-    font-family: 'intro', sans-serif
-    font-weight: normal
     text-align: center
+
+    font-family: 'intro', sans-serif
+    font-size: 60px
+    font-weight: normal
 
     @media only screen and (max-width: 768px)
       font-size: 45px
 
   &__buttons
     display: flex
-    justify-content: center
     flex-wrap: wrap
+    justify-content: center
 
   &__button
-    @extend .button
+    @extend %button
 
     &:first-of-type
       @include button-state($button-main-bg-color)
@@ -127,7 +137,9 @@ body
 
 .section-cool-items
   display: grid
+
   padding: $gutter-size-small
+
   grid-gap: $gutter-size-small
 
   @media only screen and (max-width: 480px)
@@ -142,25 +154,29 @@ body
   @media only screen and (min-width: 969px)
     grid-template-columns: repeat(4, 1fr)
 
+
   &__item
-    @include with-overlay($overlay-color-light)
-
     display: grid
-    justify-content: center
     align-items: center
+    justify-content: center
 
-    font-size: 22px
-    font-weight: bold
+    transition: color .3s ease
     text-decoration: none
 
     color: $text-color
-    transition: color .3s ease
+
+    font-size: 22px
+    font-weight: bold
+
+    @include with-overlay($overlay-color-light)
+
 
     @media only screen and (max-height: 400px)
       min-height: calc(50vh - 10px)
 
     @media only screen and (min-height: 401px)
       min-height: calc(33vh - 10px)
+
 
     &:hover
       color: $accent-color
@@ -208,13 +224,17 @@ body
     z-index: 1
 
 .section-are-you-ready
-  color: $section-are-you-ready-text-color
-  background-color: $section-are-you-ready-bg-color
   padding: 40px 0
 
-  &__container
-    @extend .container
+  color: $section-are-you-ready-text-color
+  background-color: $section-are-you-ready-bg-color
 
+
+  &__container
+    @extend %container
+
+
+  &__content
     display: grid
     align-items: center
 
@@ -224,22 +244,26 @@ body
     @media only screen and (min-width: 769px)
       grid-template-columns: 1fr 1fr
 
+
   &__text-wrapper
     @media only screen and (min-width: 769px)
-      border-right: 1px solid $section-are-you-ready-border-color
-
       padding:
-        right: 50px
         top: 40px
+        right: 50px
         bottom: 40px
 
+
+      border-right: 1px solid $section-are-you-ready-border-color
+
+
   &__title
-    @extend .section-title
+    @extend %section-title
 
   &__text
-    font-size: 18px
-    padding: 0
     margin: 0
+    padding: 0
+
+    font-size: 18px
     line-height: 1.5
 
     @media only screen and (max-width: 768px)
@@ -252,25 +276,26 @@ body
 
   &__image
     display: flex
-    margin: auto
 
     width: 100%
-
     height: auto
+    margin: auto
 
     @media only screen and (max-width: 768px)
-      margin-top: 30px
       max-width: 300px
+      margin-top: 30px
 
 .section-form
   padding: 25px 0
+
   background-color: $section-form-bg-color
 
   &__container
-    @extend .container
+    @extend %container
 
   &__form
     display: grid
+
     grid-gap: $gutter-size
 
     @media only screen and (max-width: 500px)
@@ -286,17 +311,16 @@ body
     height: 53px
     padding: $gutter-size
 
-    background-color: $section-form-input-bg-color
-    color: $section-form-input-text-color
-
-    border: none
-    outline: none
-
     transition: background-color .3s ease
 
+    color: $section-form-input-text-color
+    border: none
+    outline: none
+    background-color: $section-form-input-bg-color
+
     &:focus
-      background-color: $section-form-input-focus-bg-color
       color: $section-form-input-focus-text-color
+      background-color: $section-form-input-focus-bg-color
 
     &::-webkit-input-placeholder
       color: $section-form-input-placeholder-color
@@ -308,20 +332,21 @@ body
       color: $section-form-input-placeholder-color
 
   &__button
-    @extend .button
+    @extend %button
     @include button-state($button-main-bg-color)
 
 .section-blog
   padding: 70px 0
 
   &__container
-    @extend .container
+    @extend %container
 
   &__title
-    @extend .section-title
+    @extend %section-title
 
   &__items
     display: grid
+
     grid-gap: $gutter-size
 
     @media only screen and (max-width: 480px)
@@ -334,14 +359,17 @@ body
         grid-template-columns: repeat(4, 1fr)
 
   &__item
-    text-decoration: none
-    text-align: center
     display: grid
-    align-items: center
-    grid-template-rows: 1fr 1fr
-    background-color: #F7F7F7
-    transition: backgound-color .3s ease
     overflow: hidden
+    align-items: center
+
+    transition: backgound-color .3s ease
+    text-align: center
+    text-decoration: none
+
+    background-color: #F7F7F7
+
+    grid-template-rows: 1fr 1fr
 
     &:hover
       background-color: #ededed
@@ -366,47 +394,59 @@ body
         .section-blog__item-image
           @include background-image('/section-blog/#{$index}')
 
+
   &__item-image
     height: 270px
+
     transition: transform .3s ease
 
   &__item-text-wrapper
     display: grid
     align-items: center
     justify-content: center
+
     padding: $gutter-size
+
     line-height: 1.75
 
   &__item-title
-    color: $section-blog-title-text-color
-    font-size: 18px
-    font-weight: bold
     margin: 0 0 20px
     padding: 0
+
     transition: color .3s ease
 
+    color: $section-blog-title-text-color
+
+    font-size: 18px
+    font-weight: bold
+
   &__item-text
-    font-size: 16px
-    color: #333333
-    padding: 0
     margin: 0
+    padding: 0
+
+    color: #333333
+
+    font-size: 16px
 
 .main-footer
-  background-color: #1B2429
-  text-align: center
   padding: 50px 0
+
+  text-align: center
+
   color: #4E5355
+  background-color: #1B2429
 
   @media only screen and (max-width: 768px)
     padding: 20px 0
 
   &__container
-    @extend .container
+    @extend %container
 
   &__logo
+    margin-bottom: 30px
+
     font-family: 'intro', sans-serif
     font-size: 22px
-    margin-bottom: 30px
 
     @media only screen and (max-width: 768px)
       margin-bottom: 15px
@@ -414,10 +454,13 @@ body
   &__logo-span
     display: flex
     justify-content: center
+
     color: #707476
+
     font-size: 27px
 
   &__copyright
-    font-size: 20px
     margin-top: 0
     padding-top: 0
+
+    font-size: 20px
